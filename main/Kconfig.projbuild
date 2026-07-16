@@ -1,0 +1,64 @@
+menu "ESP-BH1750 Configuration"
+
+    config ESP_BH1750_WIFI_SSID
+        string "WiFi SSID"
+        default ""
+        help
+            WiFi network SSID. Leave empty to start in captive portal setup mode.
+
+    config ESP_BH1750_WIFI_PASSWORD
+        string "WiFi Password"
+        default ""
+        help
+            WiFi network password.
+
+    config ESP_BH1750_WIFI_MAX_RETRIES
+        int "WiFi connection retries before setup portal"
+        range 1 30
+        default 8
+        help
+            Number of station reconnect attempts before the fallback setup AP
+            and captive portal are enabled.
+
+    config ESP_BH1750_SETUP_AP_SSID
+        string "Setup portal AP SSID"
+        default "ESP-BH1750-Setup"
+        help
+            WiFi network name used by the fallback captive portal.
+
+    config ESP_BH1750_SETUP_AP_PASSWORD
+        string "Setup portal AP password"
+        default ""
+        help
+            Optional password for the setup portal AP. Leave empty for an open
+            setup network. If set, ESP-IDF requires at least 8 characters.
+
+    config ESP_BH1750_SETUP_AP_CHANNEL
+        int "Setup portal AP channel"
+        range 1 13
+        default 6
+        help
+            WiFi channel used by the fallback setup portal AP.
+
+    config ESP_BH1750_HOMEKIT_ENABLE
+        bool "Enable non-certified HomeKit accessory"
+        default y
+        help
+            Expose the light sensor as an uncertified HomeKit accessory using the
+            open ESP HomeKit SDK.
+
+    config ESP_BH1750_HOMEKIT_SETUP_CODE
+        string "HomeKit setup code"
+        default "111-22-333"
+        depends on ESP_BH1750_HOMEKIT_ENABLE
+        help
+            Pairing code shown in Apple Home after selecting Add Anyway. Format must be xxx-xx-xxx.
+
+    config ESP_BH1750_HOMEKIT_SETUP_ID
+        string "HomeKit setup ID"
+        default "BH17"
+        depends on ESP_BH1750_HOMEKIT_ENABLE
+        help
+            Four-character setup ID used in the HomeKit setup payload.
+
+endmenu
